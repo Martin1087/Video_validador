@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Reproductor de Video - Validador de Datos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 25px;
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        
+        .descripcion {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+        
+        .video-wrapper {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .info {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #555;
+            margin-top: 15px;
+        }
+        
+        .info a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .info a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📹 Validador de Datos</h1>
+        <div class="descripcion">Versión 8.69.2 - Video demostrativo</div>
+        
+        <div class="video-wrapper">
+            <video controls width="100%" poster="">
+                <source src="Validador_Datos_8.69.2_compressed.mp4" type="video/mp4">
+                <source src="Validador_Datos_8.69.2_compressed.mp4" type="video/webm">
+                <source src="Validador_Datos_8.69.2_compressed.mp4" type="video/ogg">
+                <div style="padding: 20px; background: #f0f0f0; color: #333;">
+                    ⚠️ Tu navegador no soporta la etiqueta de video.<br>
+                    <a href="Validador_Datos_8.69.2_compressed.mp4">Haz clic aquí para descargar el video</a>
+                </div>
+            </video>
+        </div>
+        
+        <div class="info">
+            💡 <strong>Consejos:</strong><br>
+            • NOTA el video no tiene sonido se sugiere poner pantalla completa.<br>
+            • También puedes <a href="Validador_Datos_8.69.2_compressed.mp4" download>descargar el video directamente</a>.
+        </div>
+    </div>
+</body>
+</html>
