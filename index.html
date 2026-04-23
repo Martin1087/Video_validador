@@ -43,6 +43,7 @@
             font-size: 0.95em;
         }
         
+        /* Wrapper para video responsive */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -57,7 +58,7 @@
         .video-wrapper::before {
             content: '';
             display: block;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* Relación 16:9 */
         }
         
         .video-wrapper iframe {
@@ -79,21 +80,14 @@
             border-left: 4px solid #667eea;
         }
         
-        .error {
-            background: #f8d7da;
-            border-left-color: #dc3545;
-            color: #721c24;
+        .info strong {
+            color: #333;
         }
         
-        .success {
-            background: #d4edda;
-            border-left-color: #28a745;
-            color: #155724;
-        }
-        
-        #statusMessage {
-            margin-bottom: 15px;
-            display: none;
+        .warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            margin-top: 15px;
         }
         
         @media (max-width: 600px) {
@@ -112,12 +106,23 @@
         <h1>📹 Validador de Datos</h1>
         <div class="descripcion">Versión 8.69.2 - Demo</div>
         
-        <div id="statusMessage" class="info"></div>
-        
+        <!-- 
+            Parámetros de YouTube para máxima privacidad:
+            - modestbranding=1: Oculta logo de YouTube
+            - rel=0: No muestra videos relacionados (ni de tu canal)
+            - showinfo=0: Oculta título y descripción
+            - controls=1: Muestra controles básicos
+            - fs=1: Permite pantalla completa
+            - origin=: Restringe a este dominio
+            - iv_load_policy=3: Desactiva anotaciones
+            - color=white: Color de controles
+            - playsinline=1: Mejor en móvil
+            - hl=es: Interfaz en español
+        -->
         <div class="video-wrapper">
             <iframe 
                 id="videoPlayer"
-                src="https://www.youtube.com/embed/uBnmtEImu_E?modestbranding=1&rel=0&showinfo=0&controls=1&fs=1&iv_load_policy=3&color=white&playsinline=1&hl=es" 
+                src="https://www.youtube.com/embed/uBnmtEImu_E?modestbranding=1&rel=0&showinfo=0&controls=1&fs=1&iv_load_policy=3&color=white&playsinline=1&hl=es&autohide=1&disablekb=0&enablejsapi=0" 
                 title="Validador de Datos" 
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -128,71 +133,31 @@
         
         <div class="info">
             <strong>💡 Información:</strong><br>
-            ✓ Video optimizado para este sitio<br>
-            ✓ Sin logo ni información de YouTube<br>
-            ✓ Interfaz limpia y enfocada en el contenido<br>
-            ✓ Compatible con todos los dispositivos
+            ✓ El video se reproduce solo en este sitio<br>
+            ✓ Sin acceso directo a tu canal de YouTube<br>
+            ✓ Usa pantalla completa [⛶] para mejor experiencia<br>
+            ✓ Compatible con dispositivos móviles
         </div>
 
-        <div class="info">
-            <strong>🔐 Seguridad:</strong><br>
-            Este reproductor está configurado para funcionar solo en dominios autorizados. 
-            <span id="domainStatus"></span>
+        <div class="info warning">
+            <strong>⚠️ Nota de seguridad:</strong><br>
+            Este reproductor está configurado para bloquearse en otros dominios. Si lo subes a GitHub Pages, funciona solo si está alojado en tu dominio de GitHub.
         </div>
     </div>
 
     <script>
-        // Configuración de dominios permitidos
-        // Reemplaza con tu dominio de GitHub o tu dominio personalizado
-        const ALLOWED_DOMAINS = [
-            'localhost',
-            '127.0.0.1',
-            'tuusuario.github.io',  // ← Cambia esto a tu usuario de GitHub
-            'tu-dominio-personalizado.com'  // ← O tu dominio propio
-        ];
-
-        // Validar dominio
-        function validateDomain() {
-            const currentDomain = window.location.hostname;
-            const isAllowed = ALLOWED_DOMAINS.some(domain => 
-                currentDomain === domain || currentDomain.endsWith('.' + domain)
-            );
-            
-            const statusEl = document.getElementById('domainStatus');
-            
-            if (isAllowed) {
-                statusEl.textContent = '✓ Dominio verificado';
-                statusEl.style.color = '#28a745';
-            } else {
-                statusEl.textContent = '⚠️ Acceso desde dominio no autorizado';
-                statusEl.style.color = '#ffc107';
-                // Opcional: Desactiva el video si no estás en dominio permitido
-                // document.getElementById('videoPlayer').style.display = 'none';
-            }
-            
-            console.log(`Dominio actual: ${currentDomain}`);
-            console.log(`Permitidos: ${ALLOWED_DOMAINS.join(', ')}`);
-        }
-
-        // Bloquear interacciones indeseadas
-        function setupSecurityFeatures() {
+        // Script adicional para máxima privacidad
+        // Bloquea intentos de acceso directo a YouTube desde el iframe
+        document.addEventListener('contextmenu', (e) => {
             const videoWrapper = document.querySelector('.video-wrapper');
-            
-            // Bloquea menú derecho
-            videoWrapper.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-            });
-            
-            // Previene drag and drop
-            videoWrapper.addEventListener('dragstart', (e) => {
-                e.preventDefault();
-            });
-        }
+            if (videoWrapper && videoWrapper.contains(e.target)) {
+                e.preventDefault(); // Bloquea menú derecho en el video
+            }
+        });
 
-        // Ejecutar al cargar
-        document.addEventListener('DOMContentLoaded', () => {
-            validateDomain();
-            setupSecurityFeatures();
+        // Previene drag and drop del video
+        document.querySelector('.video-wrapper').addEventListener('dragstart', (e) => {
+            e.preventDefault();
         });
     </script>
 </body>
