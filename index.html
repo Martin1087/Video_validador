@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Validador de Datos 8.69.2</title>
+    <title>Reproductor de Video - Validador de Datos</title>
     <style>
         * {
             margin: 0;
@@ -43,22 +43,15 @@
             font-size: 0.95em;
         }
         
-        /* Wrapper para video responsive */
         .video-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 20px;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .video-wrapper::before {
-            content: '';
-            display: block;
-            padding-bottom: 56.25%; /* Relación 16:9 */
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
         }
         
         .video-wrapper iframe {
@@ -72,22 +65,20 @@
         
         .info {
             background: #f5f5f5;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             font-size: 0.85em;
             color: #555;
             margin-top: 15px;
-            border-left: 4px solid #667eea;
         }
         
-        .info strong {
-            color: #333;
+        .info a {
+            color: #667eea;
+            text-decoration: none;
         }
         
-        .warning {
-            background: #fff3cd;
-            border-left-color: #ffc107;
-            margin-top: 15px;
+        .info a:hover {
+            text-decoration: underline;
         }
         
         @media (max-width: 600px) {
@@ -104,61 +95,25 @@
 <body>
     <div class="container">
         <h1>📹 Validador de Datos</h1>
-        <div class="descripcion">Versión 8.69.2 - Demo</div>
+        <div class="descripcion">Versión 8.69.2 - Video demostrativo</div>
         
-        <!-- 
-            Parámetros de YouTube para máxima privacidad:
-            - modestbranding=1: Oculta logo de YouTube
-            - rel=0: No muestra videos relacionados (ni de tu canal)
-            - showinfo=0: Oculta título y descripción
-            - controls=1: Muestra controles básicos
-            - fs=1: Permite pantalla completa
-            - origin=: Restringe a este dominio
-            - iv_load_policy=3: Desactiva anotaciones
-            - color=white: Color de controles
-            - playsinline=1: Mejor en móvil
-            - hl=es: Interfaz en español
-        -->
         <div class="video-wrapper">
             <iframe 
-                id="videoPlayer"
-                src="https://www.youtube.com/embed/uBnmtEImu_E?modestbranding=1&rel=0&showinfo=0&controls=1&fs=1&iv_load_policy=3&color=white&playsinline=1&hl=es&autohide=1&disablekb=0&enablejsapi=0" 
-                title="Validador de Datos" 
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy">
+                src="https://www.youtube-nocookie.com/embed/uBnmtEImu_E?modestbranding=1&rel=0&showinfo=0&controls=1&color=white&iv_load_policy=3&hl=es&cc_lang_pref=es&fs=1&disablekb=0&autohide=1&playsinline=1" 
+                title="Reproductor de video" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
             </iframe>
         </div>
         
         <div class="info">
-            <strong>💡 Información:</strong><br>
-            ✓ El video se reproduce solo en este sitio<br>
-            ✓ Sin acceso directo a tu canal de YouTube<br>
-            ✓ Usa pantalla completa [⛶] para mejor experiencia<br>
-            ✓ Compatible con dispositivos móviles
-        </div>
-
-        <div class="info warning">
-            <strong>⚠️ Nota de seguridad:</strong><br>
-            Este reproductor está configurado para bloquearse en otros dominios. Si lo subes a GitHub Pages, funciona solo si está alojado en tu dominio de GitHub.
+            💡 <strong>Información:</strong><br>
+            • Este video no tiene sonido - se recomienda usar pantalla completa.<br>
+            • Reproductor optimizado para máxima privacidad.<br>
+            • <a href="https://youtu.be/uBnmtEImu_E" target="_blank">Abrir en YouTube</a> (si necesitas descargarlo).
         </div>
     </div>
-
-    <script>
-        // Script adicional para máxima privacidad
-        // Bloquea intentos de acceso directo a YouTube desde el iframe
-        document.addEventListener('contextmenu', (e) => {
-            const videoWrapper = document.querySelector('.video-wrapper');
-            if (videoWrapper && videoWrapper.contains(e.target)) {
-                e.preventDefault(); // Bloquea menú derecho en el video
-            }
-        });
-
-        // Previene drag and drop del video
-        document.querySelector('.video-wrapper').addEventListener('dragstart', (e) => {
-            e.preventDefault();
-        });
-    </script>
 </body>
 </html>
