@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Reproductor de Video - Validador de Datos</title>
+    <title>Validador de Datos 8.69.2</title>
     <style>
         * {
             margin: 0;
@@ -44,14 +44,20 @@
         }
         
         .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 56.25%; /* Relación 16:9 */
-            height: 0;
+        }
+        
+        .video-wrapper::before {
+            content: '';
+            display: block;
+            padding-bottom: 56.25%;
         }
         
         .video-wrapper iframe {
@@ -65,20 +71,29 @@
         
         .info {
             background: #f5f5f5;
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
             font-size: 0.85em;
             color: #555;
             margin-top: 15px;
+            border-left: 4px solid #667eea;
         }
         
-        .info a {
-            color: #667eea;
-            text-decoration: none;
+        .error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
         }
         
-        .info a:hover {
-            text-decoration: underline;
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        
+        #statusMessage {
+            margin-bottom: 15px;
+            display: none;
         }
         
         @media (max-width: 600px) {
@@ -95,25 +110,90 @@
 <body>
     <div class="container">
         <h1>📹 Validador de Datos</h1>
-        <div class="descripcion">Versión 8.69.2 - Video demostrativo</div>
+        <div class="descripcion">Versión 8.69.2 - Demo</div>
+        
+        <div id="statusMessage" class="info"></div>
         
         <div class="video-wrapper">
             <iframe 
-                src="https://www.youtube.com/embed/uBnmtEImu_E?modestbranding=1&rel=0&showinfo=0&controls=1&color=white&iv_load_policy=3&hl=es&autohide=1&playsinline=1" 
-                title="Reproductor de video Validador de Datos" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
+                id="videoPlayer"
+                src="https://www.youtube.com/embed/uBnmtEImu_E?modestbranding=1&rel=0&showinfo=0&controls=1&fs=1&iv_load_policy=3&color=white&playsinline=1&hl=es" 
+                title="Validador de Datos" 
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy">
             </iframe>
         </div>
         
         <div class="info">
-            💡 <strong>Información:</strong><br>
-            • El video no tiene sonido - se recomienda usar pantalla completa.<br>
-            • Haz clic en el botón de pantalla completa [⛶] para mejor visualización.<br>
-            • <a href="https://youtu.be/uBnmtEImu_E" target="_blank">Abrir en YouTube</a> (si necesitas descargarlo)
+            <strong>💡 Información:</strong><br>
+            ✓ Video optimizado para este sitio<br>
+            ✓ Sin logo ni información de YouTube<br>
+            ✓ Interfaz limpia y enfocada en el contenido<br>
+            ✓ Compatible con todos los dispositivos
+        </div>
+
+        <div class="info">
+            <strong>🔐 Seguridad:</strong><br>
+            Este reproductor está configurado para funcionar solo en dominios autorizados. 
+            <span id="domainStatus"></span>
         </div>
     </div>
+
+    <script>
+        // Configuración de dominios permitidos
+        // Reemplaza con tu dominio de GitHub o tu dominio personalizado
+        const ALLOWED_DOMAINS = [
+            'localhost',
+            '127.0.0.1',
+            'tuusuario.github.io',  // ← Cambia esto a tu usuario de GitHub
+            'tu-dominio-personalizado.com'  // ← O tu dominio propio
+        ];
+
+        // Validar dominio
+        function validateDomain() {
+            const currentDomain = window.location.hostname;
+            const isAllowed = ALLOWED_DOMAINS.some(domain => 
+                currentDomain === domain || currentDomain.endsWith('.' + domain)
+            );
+            
+            const statusEl = document.getElementById('domainStatus');
+            
+            if (isAllowed) {
+                statusEl.textContent = '✓ Dominio verificado';
+                statusEl.style.color = '#28a745';
+            } else {
+                statusEl.textContent = '⚠️ Acceso desde dominio no autorizado';
+                statusEl.style.color = '#ffc107';
+                // Opcional: Desactiva el video si no estás en dominio permitido
+                // document.getElementById('videoPlayer').style.display = 'none';
+            }
+            
+            console.log(`Dominio actual: ${currentDomain}`);
+            console.log(`Permitidos: ${ALLOWED_DOMAINS.join(', ')}`);
+        }
+
+        // Bloquear interacciones indeseadas
+        function setupSecurityFeatures() {
+            const videoWrapper = document.querySelector('.video-wrapper');
+            
+            // Bloquea menú derecho
+            videoWrapper.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+            
+            // Previene drag and drop
+            videoWrapper.addEventListener('dragstart', (e) => {
+                e.preventDefault();
+            });
+        }
+
+        // Ejecutar al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            validateDomain();
+            setupSecurityFeatures();
+        });
+    </script>
 </body>
 </html>
