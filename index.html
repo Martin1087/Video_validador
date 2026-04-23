@@ -49,12 +49,18 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
         }
         
-        video {
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            border: none;
         }
         
         .info {
@@ -92,21 +98,20 @@
         <div class="descripcion">Versión 8.69.2 - Video demostrativo</div>
         
         <div class="video-wrapper">
-            <video controls width="100%" poster="">
-                <source src="Validador_Datos_8.69.2_compressed.mp4" type="video/mp4">
-                <source src="Validador_Datos_8.69.2_compressed.mp4" type="video/webm">
-                <source src="Validador_Datos_8.69.2_compressed.mp4" type="video/ogg">
-                <div style="padding: 20px; background: #f0f0f0; color: #333;">
-                    ⚠️ Tu navegador no soporta la etiqueta de video.<br>
-                    <a href="Validador_Datos_8.69.2_compressed.mp4">Haz clic aquí para descargar el video</a>
-                </div>
-            </video>
+            <iframe 
+                src="https://www.youtube.com/embed/uBnmtEImu_E" 
+                title="YouTube video player - Validador de Datos 8.69.2" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
         </div>
         
         <div class="info">
             💡 <strong>Consejos:</strong><br>
-            • NOTA el video no tiene sonido se sugiere poner pantalla completa.<br>
-            • También puedes <a href="Validador_Datos_8.69.2_compressed.mp4" download>descargar el video directamente</a>.
+            • NOTA: el video no tiene sonido, se sugiere poner pantalla completa.<br>
+            • También puedes <a href="https://youtu.be/uBnmtEImu_E" target="_blank">abrir el video directamente en YouTube</a>.
         </div>
     </div>
 </body>
